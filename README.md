@@ -16,3 +16,12 @@ You can download Processing from the official website at https://processing.org/
   <p align="center">
     <img src="animations/waves.gif" width="300" height="300" alt="waves animation">
   </p>
+  
+ - **Gravitational Well Sketch**
+  
+    The "Gravitational Well" sketch is a 3D particle simulation where particles emerge from random points on the edges of the canvas and move towards the center of the       screen in a gravitational-like movement. As they reach the center of the screen, they disappear and reappear on the edges, creating an endless loop of particle   movement. The particles are displayed as spheres with a randomized color. The sketch is designed to be hypnotic and mesmerizing, with the endless loop of movement drawing the viewer into the center of the well.
+    Here's a preview of the animation:
+  
+  <p align="center">
+    <img src="animations/gravitational-well.gif" width="300" height="300" alt="gravitational well animation">
+  </p>
