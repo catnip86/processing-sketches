@@ -1,4 +1,5 @@
 int CUBES = 25;
+
 Cube[] cubes = new Cube[CUBES];
 
 void setup() {
@@ -11,7 +12,7 @@ void setup() {
 
 void draw() {
   background(0);
-  
+    
   // Move and rotate cubes
   for (int i = 0; i < cubes.length; i++) {
     Cube c = cubes[i];
