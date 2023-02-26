@@ -1,22 +1,29 @@
-int particlesCount = 500;
-int depth = 300;
-int maxSpeed = 50;
-int maxRadius = 100;
+int PARTICLES_COUNT = 250;
+int SCENE_DEPTH = 300;
+int MAX_SPEED = 500;
+int MAX_RADIUS = 50;
+
+boolean SAVE_FRAMES = false;
+int ANIMATION_LENGHT_SECONDS = 30;
+int FRAME_RATE = 30;
+int FRAMES_TO_SAVE = FRAME_RATE * ANIMATION_LENGHT_SECONDS;
+int SMOOTH_AMOUNT = 3;
+int PIXEL_DENSITY = 2;
+int CURRENT_FRAME = 0;
 
 class Particle {
   PVector pos, vel, acc;
   float size;
   int index;
   color pColor;
-
-
+  
   Particle(int i, color minColor, color maxColor) {
     index = i;
     float angle = random(TWO_PI);
-    float radius = random(maxRadius);
+    float radius = random(MAX_RADIUS);
     float x = cos(angle) * radius;
     float y = sin(angle) * radius;
-    float z = random(-depth/2, depth/2);
+    float z = random(-SCENE_DEPTH/2, SCENE_DEPTH/2);
     pos = new PVector(x, y, z);
     vel = new PVector(0, 0, 0);
     acc = new PVector(0, 0, 0);
@@ -47,7 +54,7 @@ class Particle {
   }
 }
 
-Particle[] particles = new Particle[particlesCount];
+Particle[] particles = new Particle[PARTICLES_COUNT];
 
 float minX, maxX, minY, maxY, minZ, maxZ;
 
@@ -61,7 +68,11 @@ color[] palette = {
 
 void setup() {
   size(1024, 1024, P3D);
-  perspective(60 * DEG_TO_RAD, width/height, 1, 1000);
+  perspective(60 * DEG_TO_RAD, width/height, 1, 1000);  
+  frameRate(FRAME_RATE);
+  pixelDensity(PIXEL_DENSITY);
+  smooth(SMOOTH_AMOUNT);
+  noStroke();
   
   for (int i = 0; i < particles.length; i++) {
     particles[i] = new Particle(i, palette[0], palette[palette.length - 1]);
@@ -85,10 +96,15 @@ void draw() {
   // Update particles and draw them
   updateParticles();
   drawParticles();
+  
+  // Save frame for animation
+  if (SAVE_FRAMES) {
+    saveFrame();
+  }
 }
 
 void updateParticles() {
-  PVector center = new PVector(width/2, height/2, depth/2);
+  PVector center = new PVector(width/2, height/2, SCENE_DEPTH/2);
   
   for (int i = 0; i < particles.length; i++) {
     Particle p = particles[i];
@@ -109,7 +125,7 @@ void updateParticles() {
 
     // Normalize the particle velocity and limit its speed
     p.vel.normalize();
-    p.vel.limit(maxSpeed);
+    p.vel.limit(MAX_SPEED);
 
     // Check if the particle has reached the center of the scene
     if (distance < p.size) {
@@ -135,7 +151,7 @@ void updateBounds() {
   maxX = width;
   minY = 0;
   maxY = height;
-  minZ = -depth;
+  minZ = -SCENE_DEPTH;
   maxZ = 0;
 }
 
@@ -144,4 +160,15 @@ void setCamera() {
   float centerY = (minY + maxY)/2;
   float centerZ = (minZ + maxZ)/2;
   camera(centerX, centerY, maxZ + 2*(maxZ - minZ), centerX, centerY, centerZ, 0, 1, 0);
+}
+
+void saveFrame() {
+  // Save the current frame to disk
+  if (CURRENT_FRAME < FRAMES_TO_SAVE) {
+    saveFrame("output/frame-######.png");
+    hint(DISABLE_OPTIMIZED_STROKE);
+    CURRENT_FRAME++;
+  } else {
+      exit();
+    }
 }
