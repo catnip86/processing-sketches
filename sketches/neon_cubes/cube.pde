@@ -1,12 +1,11 @@
 class Cube {
   PVector pos, vel, acc;
   float size, angle;
-  int index, frameCountAtCollision;
+  int frameCountAtCollision;
   boolean isColliding, isMoving, isFading, hasChangedColor;
   color color1, color2;
 
-  Cube(int i) {
-    index = i;
+  Cube() {
     size = random(50, 100);
     pos = new PVector(random(width), random(height), random(-500, 500));
     vel = new PVector(random(-2, 2), random(-2, 2), random(-2, 2));
