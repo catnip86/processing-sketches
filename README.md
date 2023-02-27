@@ -25,3 +25,10 @@ You can download Processing from the official website at https://processing.org/
   <p align="center">
     <img src="animations/gravitational-well.gif" width="300" height="300" alt="gravitational well animation">
   </p>
+  
+  - **Neon Cubes**
+  
+    The neon cubes sketch is an animation that features cubes moving around in a 3D space. The cubes rotate and   change direction when they collide with each other or the edges of the canvas. The color palette is inspired by cyberpunk aesthetics, featuring bright neon colors that pop against a dark background.
+    <p align="center">
+      <img src="animations/neon-cubes.gif" width="300" height="300" alt="neon cubes animation">
+    </p>
