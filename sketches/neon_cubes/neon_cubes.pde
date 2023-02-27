@@ -1,7 +1,7 @@
-int CUBES = 50;
+int CUBES = 30;
 
 boolean SAVE_FRAMES = false;
-int ANIMATION_LENGHT_SECONDS = 30;
+int ANIMATION_LENGHT_SECONDS = 10;
 int FRAME_RATE = 70;
 int FRAMES_TO_SAVE = FRAME_RATE * ANIMATION_LENGHT_SECONDS;
 int SMOOTH_AMOUNT = 2;
@@ -36,8 +36,13 @@ void draw() {
   
   // Draw cubes
   for (int i = 0; i < cubes.length; i++) {
-  Cube c = cubes[i];
-  c.display();
+    Cube c = cubes[i];
+    c.display();
+  }
+  
+  // Save
+  if (SAVE_FRAMES) {
+    saveFrame();
   }
 }
 
