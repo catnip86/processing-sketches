@@ -6,7 +6,7 @@ void setup() {
   size(800, 800, P3D);
   colorMode(HSB);
   for (int i = 0; i < cubes.length; i++) {
-    cubes[i] = new Cube(i);
+    cubes[i] = new Cube();
   }
 }
 
