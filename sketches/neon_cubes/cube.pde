@@ -34,7 +34,7 @@ class Cube {
       isMoving = true;
     }
   }
-
+  
   void checkEdges() {
     if (pos.x < -width/2 || pos.x > width/2) {
       vel.x *= -1;
