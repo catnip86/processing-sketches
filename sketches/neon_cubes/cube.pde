@@ -19,10 +19,6 @@ class Cube {
     color2 = color(random(0, 255), random(100, 255), random(100, 255));
   }
 
-  void applyForce(PVector force) {
-    acc.add(force);
-  }
-
   void update() {
     vel.add(acc);
     pos.add(vel);
@@ -71,6 +67,9 @@ class Cube {
         other.isColliding = true;
         this.frameCountAtCollision = frameCount;
         other.frameCountAtCollision = frameCount;
+        // Change direction of the cubes when they collide
+        this.vel.mult(-1);
+        other.vel.mult(-1);
       }
     }
   }
