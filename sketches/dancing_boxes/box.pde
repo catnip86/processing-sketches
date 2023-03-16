@@ -20,9 +20,9 @@ class Box {
     z = lerp(z, targetZ, 0.1);
     
     if (isBeat) { //<>//
-      hue = (index * 30 + hue + 30) % 360;
-      saturation = 80 + random(20); // Keep saturation high, between 80 and 100
-      brightness = 80 + random(20); // Keep brightness high, between 80 and 100
+      hue = (map(amplitude, 0, 1, 0, 360) + index * 40) % 360;
+      saturation = map(amplitude, 0, 1, 80, 100) + index * 2;
+      brightness = map(amplitude, 0, 1, 80, 100) + index * 2;
     }
   }
   
