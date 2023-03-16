@@ -31,10 +31,26 @@ class Box {
     translate(width/2 + x, height/2 + y, z);
     rotateX(frameCount * 0.01);
     rotateY(frameCount * 0.02);
-    stroke(hue, saturation, brightness);
-    noFill();
-    float noiseValue = noise(noiseOffset + frameCount * 0.01);
-    box(100 * noiseValue, 100 * noiseValue, 100 * noiseValue);
+  
+    for (int i = 0; i < 3; i++) {
+      float alpha = map(i, 0, 2, 255, 40);
+      fill(hue, saturation, brightness, alpha);
+  
+      float noiseValue = noise(noiseOffset + frameCount * 0.01);
+      float boxSize = 100 * noiseValue;
+  
+      if (i == 0) {
+        float complementaryHue = (hue + 180) % 360;
+        stroke(complementaryHue, saturation, brightness, 255);
+        strokeWeight(boxSize * 0.2);
+      } else {
+        noStroke();
+      }
+      
+      box(boxSize, boxSize, boxSize);
+    }
+  
+    blendMode(BLEND);
     popMatrix();
   }
 }
