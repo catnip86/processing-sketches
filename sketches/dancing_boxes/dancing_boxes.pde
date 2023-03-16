@@ -20,6 +20,7 @@ void setup() {
   }
   soundFile.loop();
   beatDetector = new BeatDetect();
+   beatDetector.setSensitivity(100);
   
   for (int i = 0; i < BOXES; i++) {
     boxes[i] = new Box(i);
