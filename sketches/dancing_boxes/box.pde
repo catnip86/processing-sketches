@@ -33,7 +33,7 @@ class Box {
       brightness = map(amplitude, 0, 1, 80, 100) + index * 2;
       
       beatCounter++;
-      if (beatCounter % 32 == 0) {
+      if (beatCounter % 16 == 0) {
         if (availablePositions.size() == 0) {
           for (int i = 0; i < 9; i++) {
             availablePositions.add(new PVector(width/3 * (i % 3) - width/3, height/3 * (i / 3) - height/3, 0));
@@ -45,7 +45,7 @@ class Box {
       }
     }
     
-    position.lerp(targetPosition, 0.05 * amplitude);
+    position.lerp(targetPosition, 0.1 * amplitude);
   }
   
   void display() {
