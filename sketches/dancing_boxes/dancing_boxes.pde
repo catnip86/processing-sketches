@@ -2,8 +2,9 @@ import java.util.Collections;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 int BOXES = 9;
+String LOOP_PATH = "tekno-loop.wav";
 String FRAMES_PATH = "./frames";
-boolean ENABLE_VIDEO = true;
+boolean ENABLE_VIDEO = false;
 
 Minim minim;
 AudioPlayer soundFile;
@@ -25,14 +26,14 @@ void setup() {
   Collections.shuffle(availablePositions);
   
   minim = new Minim(this);
-  soundFile = minim.loadFile("loop.wav");
+  soundFile = minim.loadFile(LOOP_PATH);
   if (soundFile == null) {
     println("Error loading audio file.");
     exit();
   }
   soundFile.loop();
   beatDetector = new BeatDetect();
-   beatDetector.setSensitivity(100);
+   beatDetector.setSensitivity(500);
    
    for (int i = 0; i < 9; i++) {
     boxes[i] = new Box(i, availablePositions.remove(0));
