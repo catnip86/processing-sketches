@@ -1,3 +1,4 @@
+import java.util.Collections;
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 int BOXES = 9;
@@ -6,11 +7,17 @@ Minim minim;
 AudioPlayer soundFile;
 BeatDetect beatDetector;
 Box[] boxes = new Box[BOXES];
+ArrayList<PVector> availablePositions = new ArrayList<PVector>();
 
 void setup() {
   size(600, 600, P3D);
   colorMode(HSB, 360, 100, 100);
   noStroke();
+  
+  for (int i = 0; i < BOXES; i++) {
+    availablePositions.add(new PVector(width/3 * (i % 3) - width/3, height/3 * (i / 3) - height/3, 0));
+  }
+  Collections.shuffle(availablePositions);
   
   minim = new Minim(this);
   soundFile = minim.loadFile("loop.wav");
@@ -21,9 +28,9 @@ void setup() {
   soundFile.loop();
   beatDetector = new BeatDetect();
    beatDetector.setSensitivity(100);
-  
-  for (int i = 0; i < BOXES; i++) {
-    boxes[i] = new Box(i);
+   
+   for (int i = 0; i < 9; i++) {
+    boxes[i] = new Box(i, availablePositions.remove(0));
   }
 }
 
@@ -35,7 +42,7 @@ void draw() {
   float level = getAmplitude(soundFile.mix);
   
   for (Box box : boxes) {
-    box.update(level, isBeat);
+    box.update(level, isBeat, availablePositions);
     box.display();
   }
 }
