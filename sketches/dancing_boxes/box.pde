@@ -4,6 +4,7 @@ class Box {
   float saturation, brightness;
   PVector position;
   PVector targetPosition;
+  int beatCounter = 0;
   
   Box(int index, PVector initialPosition) {
     this.index = index;
@@ -30,22 +31,21 @@ class Box {
       hue = (map(amplitude, 0, 1, 0, 360) + index * 40) % 360;
       saturation = map(amplitude, 0, 1, 80, 100) + index * 2;
       brightness = map(amplitude, 0, 1, 80, 100) + index * 2;
+      
+      beatCounter++;
+      if (beatCounter % 32 == 0) {
+        if (availablePositions.size() == 0) {
+          for (int i = 0; i < 9; i++) {
+            availablePositions.add(new PVector(width/3 * (i % 3) - width/3, height/3 * (i / 3) - height/3, 0));
+          }
+          Collections.shuffle(availablePositions);
+        }
+  
+        targetPosition = availablePositions.remove(0);
+      }
     }
     
     position.lerp(targetPosition, 0.05 * amplitude);
-
-    if (position.dist(targetPosition) < 1) {
-      if (availablePositions.size() == 0) {
-        // Refill and shuffle the available positions list
-        for (int i = 0; i < 9; i++) {
-          availablePositions.add(new PVector(width/3 * (i % 3) - width/3, height/3 * (i / 3) - height/3, 0));
-        }
-        Collections.shuffle(availablePositions);
-      }
-
-      // Get the next available position
-      targetPosition = availablePositions.remove(0);
-    }
   }
   
   void display() {
