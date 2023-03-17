@@ -1,34 +1,56 @@
 class Box {
-  int x, y, index;
-  float z;
+  int index;
   float hue, noiseOffset;
   float saturation, brightness;
+  PVector position;
+  PVector targetPosition;
   
-  Box(int index) {
-    int row = index / 3;
-    int col = index % 3;
+  Box(int index, PVector initialPosition) {
     this.index = index;
-    x = (col - 1) * 150;
-    y = (row - 1) * 150;
-    z = 0;
+    position = initialPosition.copy();
+    targetPosition = position.copy();
     hue = map(index, 0, 8, 0, 360);
     noiseOffset = random(1000);
   }
   
-  void update(float amplitude, boolean isBeat) {
+  boolean isPositionOccupied(PVector positionToCheck, Box[] boxes) {
+    for (Box box : boxes) {
+      if (box != this && box.position.dist(positionToCheck) < 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  void update(float amplitude, boolean isBeat,  ArrayList<PVector> availablePositions) {
     float targetZ = map(amplitude, 0, 1, -200, 200);
-    z = lerp(z, targetZ, 0.1);
+    position.z = lerp(position.z, targetZ, 0.1);
     
     if (isBeat) { //<>//
       hue = (map(amplitude, 0, 1, 0, 360) + index * 40) % 360;
       saturation = map(amplitude, 0, 1, 80, 100) + index * 2;
       brightness = map(amplitude, 0, 1, 80, 100) + index * 2;
     }
+    
+    position.lerp(targetPosition, 0.05 * amplitude);
+
+    if (position.dist(targetPosition) < 1) {
+      if (availablePositions.size() == 0) {
+        // Refill and shuffle the available positions list
+        for (int i = 0; i < 9; i++) {
+          availablePositions.add(new PVector(width/3 * (i % 3) - width/3, height/3 * (i / 3) - height/3, 0));
+        }
+        Collections.shuffle(availablePositions);
+      }
+
+      // Get the next available position
+      targetPosition = availablePositions.remove(0);
+    }
   }
   
   void display() {
     pushMatrix();
-    translate(width/2 + x, height/2 + y, z);
+    translate(width/2 + position.x, height/2 + position.y, position.z);
     rotateX(frameCount * 0.01);
     rotateY(frameCount * 0.02);
   
