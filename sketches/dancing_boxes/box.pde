@@ -51,14 +51,14 @@ class Box {
   void display() {
     pushMatrix();
     translate(width/2 + position.x, height/2 + position.y, position.z);
-    rotateX(frameCount * 0.01);
-    rotateY(frameCount * 0.02);
+    rotateX(frameCount * 0.02);
+    rotateY(frameCount * 0.04);
   
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 9; i++) {
       float alpha = map(i, 0, 2, 255, 40);
       fill(hue, saturation, brightness, alpha);
   
-      float noiseValue = noise(noiseOffset + frameCount * 0.01);
+      float noiseValue = noise(noiseOffset + frameCount * 0.025);
       float boxSize = 100 * noiseValue;
   
       if (i == 0) {
