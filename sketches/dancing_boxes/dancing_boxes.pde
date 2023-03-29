@@ -33,7 +33,7 @@ void setup() {
   }
   soundFile.loop();
   beatDetector = new BeatDetect();
-   beatDetector.setSensitivity(500);
+   beatDetector.setSensitivity(300);
    
    for (int i = 0; i < 9; i++) {
     boxes[i] = new Box(i, availablePositions.remove(0));
