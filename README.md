@@ -32,3 +32,11 @@ You can download Processing from the official website at https://processing.org/
     <p align="center">
       <img src="animations/neon-cubes.gif" width="300" height="300" alt="neon cubes animation">
     </p>
+	
+  - **Dancing Boxes**
+  
+    Dancing Boxes is a creative audio-visual project that generates a mesmerizing animation of colorful, pulsating 3D boxes. The boxes are arranged in a 3x3 grid and react to the rhythm of a provided audio track. They change position and size based on the audio amplitude, creating a dynamic and engaging experience for the viewer.
+	To create the animation, the project uses a combination of audio analysis, perlin noise, and 3D rendering techniques. The colors of the boxes are carefully chosen and adjusted based on the audio amplitude and their position in the grid.
+    <p align="center">
+      ![Dancing Boxes Preview](animations/dancing-boxes.mp4)
+    </p>
