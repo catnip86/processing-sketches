@@ -38,5 +38,7 @@ You can download Processing from the official website at https://processing.org/
     Dancing Boxes is a creative audio-visual project that generates a mesmerizing animation of colorful, pulsating 3D boxes. The boxes are arranged in a 3x3 grid and react to the rhythm of a provided audio track. They change position and size based on the audio amplitude, creating a dynamic and engaging experience for the viewer.
 	To create the animation, the project uses a combination of audio analysis, perlin noise, and 3D rendering techniques. The colors of the boxes are carefully chosen and adjusted based on the audio amplitude and their position in the grid.
     <p align="center">
-	[![Dancing Boxes Video Preview](https://img.youtube.com/vi/VuQzvPF5nMU/hqdefault.jpg)](https://www.youtube.com/watch?v=VuQzvPF5nMU "Dancing Boxes Video Preview")
+	<a href="https://www.youtube.com/watch?v=VuQzvPF5nMU" target="_blank">
+  		<img src="sketches/dancing_boxes/dancing-boxes-thumbnail.jpg" alt="Dancing Boxes Video Preview" width="300" height="300">
+	</a>
     </p>
