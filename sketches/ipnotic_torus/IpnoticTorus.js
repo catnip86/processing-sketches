@@ -1,17 +1,13 @@
 let movers = [];
+let glitchyBackground;
 
 function setup() {
-  createCanvas(600, 600, WEBGL);
-  perspective(60 / 180 * PI, width / height, 0.1, 10000);
+  createCanvas(800, 800, WEBGL);
+  perspective(PI / 3.0, width / height, 0.1, 10000);
   colorMode(HSB, 360, 100, 100);
   frameRate(60);
+  glitchyBackground = new GlitchyBackground();
 
-  let boundingBoxSize = 150;
-  let sphereSize = 25;
-  let maxFrames = 600;
-  let numberOfSpheres = 6; // Number of spheres orbiting around the central point
-  
-  // Synth-pop color palette
   let synthPopColors = [
     color(300, 100, 100), // Pink
     color(200, 100, 100), // Cyan
@@ -32,25 +28,32 @@ function setup() {
     color(100, 100, 100), // Lime Green
     color(220, 100, 100)  // Deep Sky Blue
   ];
+  
+  let boxSize = 200;
+  let torusSize = 40;
+  let toriNumber = 6;
+  let maxFrames = 600;
 
   for (let i = 0; i < 3; i++) {
-    let mover = new Mover(i * maxFrames / 3, sphereSize, boundingBoxSize, synthPopColors, maxFrames, numberOfSpheres);
-    movers.push(mover);
-  }
-  
-    for (let i = 0; i < 3; i++) {
-    let mover = new Mover(i * maxFrames / 3, sphereSize*1.5, boundingBoxSize*1.5, vaporWaveColors, maxFrames, numberOfSpheres);
-    movers.push(mover);
+    let mover = new TorusMover(i * maxFrames / 3, torusSize, toriNumber, boxSize, synthPopColors, maxFrames);
+    movers.push(mover)
   }
   
   for (let i = 0; i < 3; i++) {
-    let mover = new Mover(i * maxFrames / 3, sphereSize*2, boundingBoxSize*2, psychedelicColors, maxFrames, numberOfSpheres);
-    movers.push(mover);
+    let mover = new TorusMover(i * maxFrames / 3, torusSize * 1.5, toriNumber, boxSize * 1.5, vaporWaveColors, maxFrames);
+    movers.push(mover)
   }
+  
+  for (let i = 0; i < 3; i++) {
+    let mover = new TorusMover(i * maxFrames / 3, torusSize * 2, toriNumber, boxSize * 2, psychedelicColors, maxFrames);
+    movers.push(mover)
+  }  
 }
 
 function draw() {
-  background(0);
+  glitchyBackground.display();
+
+  camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
 
   for (const mover of movers) {
     mover.update();
