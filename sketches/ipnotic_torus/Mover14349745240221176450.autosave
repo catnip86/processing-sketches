@@ -1,10 +1,11 @@
 class Mover {
-  constructor(offset, cubeSize, boxSize, colors, maxFrames) {
+  constructor(offset, sphereSize, boxSize, colors, maxFrames, numSpheres) {
     this.offset = offset;
-    this.cubeSize = cubeSize;
+    this.sphereSize = sphereSize;
     this.boxSize = boxSize;
     this.colors = colors;
     this.maxFrames = maxFrames;
+    this.numSpheres = numSpheres;
   }
 
   update() {
@@ -22,7 +23,20 @@ class Mover {
     let offsetZ = sin(this.angle * 0.5 * TWO_PI / this.maxFrames) * this.boxSize / 2;
 
     translate(offsetX, offsetY, offsetZ);
-    sphere(this.cubeSize, 4, 4);
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.02);
+
+    for (let i = 0; i < this.numSpheres; i++) {
+      push();
+      let orbitAngle = (frameCount * 0.02 + i * TWO_PI / this.numSpheres) % TWO_PI;
+      let orbitRadius = this.sphereSize * 2;
+      let sphereX = sin(orbitAngle) * orbitRadius;
+      let sphereY = cos(orbitAngle) * orbitRadius;
+      translate(sphereX, sphereY, 0);
+      sphere(this.sphereSize / 2);
+      pop();
+    }
+
     pop();
   }
 }
