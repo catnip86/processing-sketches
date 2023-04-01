@@ -2,26 +2,28 @@ class GlitchyBackground {
     constructor() {}
   
     display() {
-      // Colored noise background
-      let noiseR = noise(frameCount * 0.01) * 255;
-      let noiseG = noise((frameCount + 1000) * 0.01) * 255;
-      let noiseB = noise((frameCount + 2000) * 0.01) * 255;
-      background(noiseR, noiseG, noiseB);
+      // Flickering black and white background
+      let noiseIntensity = round(noise(frameCount * 0.7)) * 255;
+      background(noiseIntensity);
   
-      // Glitchy static television effect with vaporwave aesthetic
-      let numOfLines = random(10, 30);
-      let numOfRects = random(5, 15);
+      // Flickering horizontal bezier curves
+      let numOfLines = random(30, 50);
   
       for (let i = 0; i < numOfLines; i++) {
-        strokeWeight(random(1, 4));
-        stroke(random(200, 255), random(100, 200), random(200, 255), random(50, 150));
-        line(random(-width / 2, width / 2), random(-height / 2, height / 2), random(-width / 2, width / 2), random(-height / 2, height / 2));
-      }
+        strokeWeight(random(1, 2));
+        stroke(51);
   
-      for (let i = 0; i < numOfRects; i++) {
-        noStroke();
-        fill(random(200, 255), random(100, 200), random(200, 255), random(50, 150));
-        rect(random(-width / 2, width / 2), random(-height / 2, height / 2), random(10, 40), random(10, 40));
+        let y = random(-height, height);
+        let x1 = -width;
+        let y1 = y;
+        let x2 = -width;
+        let y2 = y + random(-10, 10);
+        let x3 = width;
+        let y3 = y + random(-10, 10);
+        let x4 = width;
+        let y4 = y;
+  
+        bezier(x1, y1, x2, y2, x3, y3, x4, y4);
       }
     }
   }  
