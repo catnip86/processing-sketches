@@ -56,13 +56,13 @@ function setup() {
 }
 
 function draw() {
-  glitchyBackground.display();
-
   camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
+  gifExporter.captureFrame();
+  
+  glitchyBackground.display();
 
   for (const mover of movers) {
     mover.update();
     mover.display();
   }
-  gifExporter.captureFrame();
 }
