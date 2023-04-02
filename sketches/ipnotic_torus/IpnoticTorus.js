@@ -56,13 +56,18 @@ function setup() {
 }
 
 function draw() {
+  resetMatrix();  
   camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
-  gifExporter.captureFrame();
-  
+
   glitchyBackground.display();
 
   for (const mover of movers) {
     mover.update();
     mover.display();
   }
+
+  gifExporter.captureFrame();
+
+  document.getElementById("frame-counter").innerText = `Frame: ${frameCount}`;
+  document.getElementById("time-counter").innerText = `Time: ${(millis() / 1000).toFixed(1)}s`;
 }
