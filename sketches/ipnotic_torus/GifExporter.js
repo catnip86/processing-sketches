@@ -3,6 +3,8 @@ class GifExporter {
       this.numFrames = numFrames;
       this.fileName = fileName;
       this.frameCounter = 0;
+      this.downloadButton = document.getElementById("download-gif");
+      this.downloadButton.disabled = true;
       this.gifExport = new GIF({
         workers: 2,
         quality: 10,
@@ -11,13 +13,12 @@ class GifExporter {
         workerScript: 'libraries/gif.worker.js'
       });
   
-      this.gifExport.on('finished', (blob) => {
+      this.gifExport.on("finished", (blob) => {
         const url = URL.createObjectURL(blob);
-        const downloadLink = document.getElementById('download-link');
-        downloadLink.href = url;
-        downloadLink.download = this.fileName;
-        downloadLink.click();
-      });
+        this.downloadButton.href = url;
+        this.downloadButton.download = this.fileName;
+        this.downloadButton.disabled = false;
+      });      
     }
   
     captureFrame() {
