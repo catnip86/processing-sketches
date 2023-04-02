@@ -14,11 +14,19 @@ class GifExporter {
       });
   
       this.gifExport.on("finished", (blob) => {
-        const url = URL.createObjectURL(blob);
-        this.downloadButton.href = url;
-        this.downloadButton.download = this.fileName;
+        this.blobURL = URL.createObjectURL(blob);
+        this.downloadButton.textContent = "Download GIF";
         this.downloadButton.disabled = false;
-      });      
+      });
+      
+      this.downloadButton.addEventListener("click", () => {
+        if (this.blobURL) {
+          const a = document.createElement("a");
+          a.href = this.blobURL;
+          a.download = this.fileName;
+          a.click();
+        }
+      });
     }
   
     captureFrame() {
