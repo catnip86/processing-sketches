@@ -1,12 +1,14 @@
 let movers = [];
 let glitchyBackground;
+let gifExporter;
 
 function setup() {
-  createCanvas(800, 800, WEBGL);
+  let canvas = createCanvas(800, 800, WEBGL);
+  canvas.willReadFrequently = true;
+  
   perspective(PI / 3.0, width / height, 0.1, 10000);
   colorMode(HSB, 360, 100, 100);
   frameRate(60);
-  glitchyBackground = new GlitchyBackground();
 
   let synthPopColors = [
     color(300, 100, 100), // Pink
@@ -32,7 +34,10 @@ function setup() {
   let boxSize = 200;
   let torusSize = 40;
   let toriNumber = 6;
-  let maxFrames = 600;
+  let maxFrames = 360;
+
+  glitchyBackground = new GlitchyBackground();
+  gifExporter = new GifExporter(maxFrames, 'loop.gif');
 
   for (let i = 0; i < 3; i++) {
     let mover = new TorusMover(i * maxFrames / 3, torusSize, toriNumber, boxSize, synthPopColors, maxFrames);
@@ -59,4 +64,5 @@ function draw() {
     mover.update();
     mover.display();
   }
+  gifExporter.captureFrame();
 }
