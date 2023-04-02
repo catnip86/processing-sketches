@@ -3,9 +3,9 @@ let glitchyBackground;
 let gifExporter;
 
 function setup() {
-  let canvas = createCanvas(800, 800, WEBGL);
+  let canvas = createCanvas(600, 600, WEBGL);
   canvas.willReadFrequently = true;
-  
+
   perspective(PI / 3.0, width / height, 0.1, 10000);
   colorMode(HSB, 360, 100, 100);
   frameRate(60);
