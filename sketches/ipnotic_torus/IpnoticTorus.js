@@ -1,6 +1,9 @@
 let movers = [];
 let glitchyBackground;
 let gifExporter;
+let loopDurationSeconds = 23;
+let fps = 60;
+let setupFinished = false;
 
 function setup() {
   let canvas = createCanvas(600, 600, WEBGL);
@@ -8,7 +11,7 @@ function setup() {
 
   perspective(PI / 3.0, width / height, 0.1, 10000);
   colorMode(HSB, 360, 100, 100);
-  frameRate(60);
+  frameRate(fps);
 
   let synthPopColors = [
     color(300, 100, 100), // Pink
@@ -34,39 +37,43 @@ function setup() {
   let boxSize = 200;
   let torusSize = 40;
   let toriNumber = 6;
-  let maxFrames = 360;
 
   glitchyBackground = new GlitchyBackground();
-  gifExporter = new GifExporter(maxFrames, 'loop.gif');
+  gifExporter = new GifExporter(window, 'loop.gif', loopDurationSeconds, fps);
 
   for (let i = 0; i < 3; i++) {
-    let mover = new TorusMover(i * maxFrames / 3, torusSize, toriNumber, boxSize, synthPopColors, maxFrames);
+    let mover = new TorusMover(i / 3, torusSize, toriNumber, boxSize, synthPopColors);
     movers.push(mover)
   }
   
   for (let i = 0; i < 3; i++) {
-    let mover = new TorusMover(i * maxFrames / 3, torusSize * 1.5, toriNumber, boxSize * 1.5, vaporWaveColors, maxFrames);
+    let mover = new TorusMover(i / 3, torusSize * 1.5, toriNumber, boxSize * 1.5, vaporWaveColors);
     movers.push(mover)
   }
   
   for (let i = 0; i < 3; i++) {
-    let mover = new TorusMover(i * maxFrames / 3, torusSize * 2, toriNumber, boxSize * 2, psychedelicColors, maxFrames);
+    let mover = new TorusMover(i / 3, torusSize * 2, toriNumber, boxSize * 2, psychedelicColors);
     movers.push(mover)
-  }  
+  }
+
+  setupFinished = true;
 }
 
 function draw() {
-  resetMatrix();  
+  if (!setupFinished) return;
+
   camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
 
   glitchyBackground.display();
 
   for (const mover of movers) {
-    mover.update();
+    mover.update(gifExporter.getTheta());
     mover.display();
   }
 
-  gifExporter.captureFrame();
+  if (gifExporter.animLoop.completed()) {
+    gifExporter.animLoop.reset();
+  }
 
   document.getElementById("frame-counter").innerText = `Frame: ${frameCount}`;
   document.getElementById("time-counter").innerText = `Time: ${(millis() / 1000).toFixed(1)}s`;
