@@ -1,23 +1,25 @@
 class TorusMover {
-  constructor(offset, torusSize, toriNumber, boxSize, colors) {
-    this.offset = offset;
+  constructor(torusSize, toriNumber, boxSize, colors) {
     this.torusSize = torusSize;
     this.toriNumber = toriNumber;
     this.boxSize = boxSize;
     this.colors = colors;
+    this.angle = 0;
+    this.theta = 0;
   }
 
   update(theta) {
-    this.angle = theta;
-  
-    this.centerX = sin(theta) * 200;
-    this.centerY = cos(theta) * 200;
-    this.centerZ = sin(theta * 2) * 100; 
+    this.theta = theta;
+    this.angle = this.theta;
+    this.centerX = sin(this.theta) * 200;
+    this.centerY = cos(this.theta) * 200;
+    this.centerZ = sin(this.theta * 2) * 100; 
   }
 
   display() {
     push();
-    let colorIndex = floor(map(this.angle, 0, TWO_PI, 0, this.colors.length)) % this.colors.length;
+    let colorFrequency = 23;
+    let colorIndex = floor(map(this.angle, 0, TWO_PI, 0, this.colors.length * colorFrequency)) % this.colors.length;
     fill(this.colors[colorIndex]);
     noStroke();
 
@@ -26,12 +28,12 @@ class TorusMover {
     let offsetZ = this.centerZ + sin(this.angle * 0.5) * this.boxSize / 2;
 
     translate(offsetX, offsetY, offsetZ);
-    rotateX(frameCount * 0.01);
-    rotateY(frameCount * 0.02);
+    rotateX(this.theta * 0.01);
+    rotateY(this.theta * 0.02);
 
     for (let i = 0; i < this.toriNumber; i++) {
       push();
-      let orbitAngle = (frameCount * 0.02 + i * TWO_PI / this.toriNumber) % TWO_PI;
+      let orbitAngle = (this.theta + i * TWO_PI / this.toriNumber) % TWO_PI;
       let orbitRadius = this.torusSize;
       let torusX = sin(orbitAngle) * orbitRadius;
       let torusY = cos(orbitAngle) * orbitRadius;
