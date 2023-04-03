@@ -1,45 +1,34 @@
 class GifExporter {
-    constructor(numFrames, fileName) {
-      this.numFrames = numFrames;
+    constructor(fileName, duration, fps) {
+      this.animLoopInstance = null;
       this.fileName = fileName;
-      this.frameCounter = 0;
       this.downloadButton = document.getElementById("download-gif");
       this.downloadButton.disabled = true;
-      this.downloadButton.textContent = "Collecting frames..."
-      this.gifExport = new GIF({
-        workers: 2,
-        quality: 10,
-        width: width,
-        height: height,
-        workerScript: 'libraries/gif.worker.js'
-      });
-  
-      this.gifExport.on("finished", (blob) => {
-        this.blobURL = URL.createObjectURL(blob);
-        this.downloadButton.textContent = "Download GIF";
-        this.downloadButton.disabled = false;
-      });
-      
-      this.downloadButton.addEventListener("click", () => {
-        if (this.blobURL) {
-          const a = document.createElement("a");
-          a.href = this.blobURL;
-          a.download = this.fileName;
-          a.click();
-        }
+      this.downloadButton.textContent = "Collecting frames...";
+
+      createLoop({
+        duration: duration,
+        framesPerSecond: fps,
+        gif: {
+          fileName: this.fileName,
+          download: false,
+          onInstance: (instance) => {
+            this.animLoopInstance = instance;
+          },
+          onFinishRender: (blob) => {
+            this.downloadButton.href = URL.createObjectURL(blob);
+            this.downloadButton.download = this.fileName;
+            this.downloadButton.disabled = false;
+            this.downloadButton.textContent = "Download GIF";
+          },
+          onStartRender: () => {
+            this.downloadButton.textContent = "Rendering GIF...";
+          },
+        },
       });
     }
-  
-    captureFrame() {
-      camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
 
-      if (this.frameCounter < this.numFrames) {
-        this.gifExport.addFrame(canvas, { delay: 1000 / frameRate(), copy: true });
-        this.frameCounter++;
-      } else if (this.frameCounter === this.numFrames) {
-        this.downloadButton.textContent = "Rendering GIF...";
-        this.gifExport.render();
-        this.frameCounter++;
-      }
+    getTheta() {
+      return this.animLoopInstance.theta;
     }
 }  

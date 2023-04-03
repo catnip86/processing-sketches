@@ -1,30 +1,29 @@
 class TorusMover {
-  constructor(offset, torusSize, toriNumber, boxSize, colors, maxFrames) {
+  constructor(offset, torusSize, toriNumber, boxSize, colors) {
     this.offset = offset;
     this.torusSize = torusSize;
     this.toriNumber = toriNumber;
     this.boxSize = boxSize;
     this.colors = colors;
-    this.maxFrames = maxFrames;
   }
 
-  update() {
-    this.angle = (frameCount + this.offset) % this.maxFrames;
+  update(theta) {
+    this.angle = theta;
   
-    this.centerX = sin(frameCount * 0.01) * 200;
-    this.centerY = cos(frameCount * 0.01) * 200;
-    this.centerZ = sin(frameCount * 0.02) * 100; 
+    this.centerX = sin(theta) * 200;
+    this.centerY = cos(theta) * 200;
+    this.centerZ = sin(theta * 2) * 100; 
   }
-  
+
   display() {
     push();
-    let colorIndex = this.angle % this.colors.length;
+    let colorIndex = floor(map(this.angle, 0, TWO_PI, 0, this.colors.length)) % this.colors.length;
     fill(this.colors[colorIndex]);
     noStroke();
 
-    let offsetX = this.centerX + sin(this.angle * TWO_PI / this.maxFrames) * this.boxSize / 2;
-    let offsetY = this.centerY + cos(this.angle * TWO_PI / this.maxFrames) * this.boxSize / 2;
-    let offsetZ = this.centerZ + sin(this.angle * 0.5 * TWO_PI / this.maxFrames) * this.boxSize / 2;
+    let offsetX = this.centerX + sin(this.angle) * this.boxSize / 2;
+    let offsetY = this.centerY + cos(this.angle) * this.boxSize / 2;
+    let offsetZ = this.centerZ + sin(this.angle * 0.5) * this.boxSize / 2;
 
     translate(offsetX, offsetY, offsetZ);
     rotateX(frameCount * 0.01);
