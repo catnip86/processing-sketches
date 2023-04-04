@@ -95,8 +95,6 @@ function setup() {
 
 function draw() {
   camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
-  ambientLight(100, 100, 100);
-  directionalLight(255, 255, 255, 0, -1, -1);
 
   let theta = animLoop.theta;
 
@@ -113,5 +111,5 @@ function draw() {
 
   frameCounterSpan.innerText = `Frame: ${frameCount}`;
   timeCounterSpan.innerText = `Time: ${(millis() / 1000).toFixed(1)}s`;
-  thetaCounterSpan.innerText = `Theta: ${theta}`;
+  thetaCounterSpan.innerText = `Theta: ${theta.toFixed(2)}`;
 }
