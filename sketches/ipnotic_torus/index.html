@@ -19,7 +19,7 @@
     <script
       language="javascript"
       type="text/javascript"
-      src="TorusMover.js"
+      src="SpiralMover.js"
     ></script>
     <script
       language="javascript"
@@ -38,11 +38,24 @@
         padding: 0;
         margin: 0;
       }
+      .info-container {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        color: #6aeb15;
+        background-color: rgba(0, 0, 0, 0.993);
+        padding: 10px;
+        border-radius: 5px;
+      }
     </style>
   </head>
   <body>
-    <span id="frame-counter">Frame: 0</span>
-    <span id="time-counter">Time: 0s</span>
-    <span id="theta-counter">Theta: 0</span>
+    <div class="info-container">
+      <span id="frame-counter">Frame: 0</span><br>
+      <span id="time-counter">Time: 0s</span><br>
+      <span id="theta-counter">Theta: 0</span>
+    </div>
   </body>
 </html>
