@@ -9,11 +9,12 @@ class SpiralMover {
   }
 
   update(theta) {
-    this.theta = theta
+    this.theta = theta;
     this.angle = this.theta;
     this.centerX = sin(this.theta) * 200;
     this.centerY = cos(this.theta) * 200;
     this.centerZ = sin(this.theta * 2) * 100;
+    this.spiralRadius = this.theta * 10;
   }
 
   display() {
@@ -26,8 +27,14 @@ class SpiralMover {
     fill(this.colors[colorIndex]);
     noStroke();
 
-    let offsetX = this.centerX + (sin(this.angle) * this.boxSize) / 2;
-    let offsetY = this.centerY + (cos(this.angle) * this.boxSize) / 2;
+    let offsetX =
+      this.centerX +
+      (sin(this.angle) * this.boxSize) / 2 +
+      sin(this.angle) * this.spiralRadius;
+    let offsetY =
+      this.centerY +
+      (cos(this.angle) * this.boxSize) / 2 +
+      cos(this.angle) * this.spiralRadius;
     let offsetZ = this.centerZ + (sin(this.angle * 0.5) * this.boxSize) / 2;
 
     translate(offsetX, offsetY, offsetZ);
