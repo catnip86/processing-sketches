@@ -32,7 +32,7 @@ class RotatingSkull {
     // Lower skull
     translate(0, -0.3 * abs(sin(this.theta * 64)), 0);
     scale(1, 1, -1);
-    rotateY(-this.theta);
+    rotateY(-this.theta + PI);
     texture(this.lowerSkullTexture);
     model(this.lowerSkull);
 
