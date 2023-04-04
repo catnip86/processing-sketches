@@ -77,6 +77,7 @@ function setup() {
 function draw() {
   camera(0, 0, 1000, 0, 0, 0, 0, 1, 0);
 
+  glitchyBackground.update(animLoop.theta);
   glitchyBackground.display();
 
   for (const mover of movers) {

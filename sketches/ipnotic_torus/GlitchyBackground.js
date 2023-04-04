@@ -1,9 +1,16 @@
 class GlitchyBackground {
-    constructor() {}
+    constructor() {
+      this.theta = 0;
+    }
+
+    update(theta) {
+      this.theta = theta;
+    }
   
     display() {
       // Flickering black and white background
-      let noiseIntensity = round(noise(frameCount * 0.7)) * 255;
+      let noiseIncrement = 23;
+      let noiseIntensity = round(noise(this.theta * noiseIncrement)) * 255;
       background(noiseIntensity);
   
       // Flickering horizontal bezier curves
