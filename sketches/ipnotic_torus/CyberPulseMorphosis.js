@@ -102,13 +102,20 @@ function draw() {
   rotatingSkull.update(theta);
 
   glitchyBackground.display();
-  rotatingSkull.display();
 
   for (const mover of movers) {
     mover.update(theta);
     mover.display();
   }
+  
 
+  ambientLight(50, 50, 50);
+  pointLight(255 * 0.5, 0, 255 * 0.5, -200, 200, 200); // Pink light
+  pointLight(0, 255 * 0.5, 255 * 0.5, 200, 200, 200); // Cyan light
+  pointLight(255 * 0.5, 255 * 0.5, 0, -200, -200, 200); // Yellow light
+  pointLight(255 * 0.5, 0, 0, 200, -200, 200); // Red light
+  rotatingSkull.display();
+  
   frameCounterSpan.innerText = `Frame: ${frameCount}`;
   timeCounterSpan.innerText = `Time: ${(millis() / 1000).toFixed(1)}s`;
   thetaCounterSpan.innerText = `Theta: ${theta.toFixed(2)}`;
