@@ -24,7 +24,6 @@ class RotatingSkull {
     rotateY(-this.theta)
 
     // Upper skull
-    ;
     texture(this.upperSkullTexture);
     model(this.upperSkull);
 
