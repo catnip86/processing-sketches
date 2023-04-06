@@ -4,6 +4,10 @@ class RotatingSkull {
     this.lowerSkull = loadModel("assets/LowerSkull.obj");
     this.upperSkullTexture = loadImage("assets/UpperSkull_BakedTexture.png");
     this.lowerSkullTexture = loadImage("assets/LowerSkull_BakedTexture.png");
+    this.upperSkullTexture.magFilter = p5.LINEAR;
+    this.upperSkullTexture.minFilter = p5.LINEAR;
+    this.lowerSkullTexture.magFilter = p5.LINEAR;
+    this.lowerSkullTexture.minFilter = p5.LINEAR;
     this.theta = 0;
   }
 
