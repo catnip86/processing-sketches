@@ -23,6 +23,8 @@ function setup() {
   let canvas = createCanvas(600, 600, WEBGL);
   canvas.willReadFrequently = true;
 
+  textureMode(NORMAL);
+
   perspective(PI / 3.0, width / height, 0.1, 10000);
   colorMode(HSB, 360, 100, 100);
   frameRate(fps);
@@ -55,7 +57,12 @@ function setup() {
   ];
 
   for (let i = 0; i < 3; i++) {
-    let mover = new SpiralMover(torusSize, toriNumber, boxSize, colors1);
+    let mover = new SpiralMover(
+      torusSize,
+      toriNumber,
+      boxSize,
+      colors1
+    );
     movers.push(mover);
   }
 
@@ -82,12 +89,11 @@ function setup() {
   createLoop({
     duration: loopDurationSeconds,
     gif: {
-      fileName: "loop.gif",
+      fileName: "CyberPulseMorphosis.gif",
       download: true,
-      open: true,
       options: {
         workers: 10,
-        dither: "Atkinson",
+        dither: "Atkinson"
       },
     },
   });
@@ -110,10 +116,10 @@ function draw() {
   
 
   ambientLight(50, 50, 50);
-  pointLight(255 * 0.5, 0, 255 * 0.5, -200, 200, 200); // Pink light
-  pointLight(0, 255 * 0.5, 255 * 0.5, 200, 200, 200); // Cyan light
-  pointLight(255 * 0.5, 255 * 0.5, 0, -200, -200, 200); // Yellow light
-  pointLight(255 * 0.5, 0, 0, 200, -200, 200); // Red light
+  pointLight(255, 0, 255, -200, 200, 200); // Pink light
+  pointLight(0, 255, 255, 200, 200, 200); // Cyan light
+  pointLight(255, 255, 0, -200, -200, 200); // Yellow light
+  pointLight(255, 0, 0, 200, -200, 200); // Red light
   rotatingSkull.display();
   
   frameCounterSpan.innerText = `Frame: ${frameCount}`;
