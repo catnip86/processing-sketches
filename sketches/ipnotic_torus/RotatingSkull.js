@@ -22,10 +22,10 @@ class RotatingSkull {
 
   display() {
     push();
-    scale(120.0);
+    scale(100.0);
 
     rotateX(PI);
-    rotateY(-this.theta)
+    rotateY(-this.theta);
 
     // Upper skull
     texture(this.upperSkullTexture);
