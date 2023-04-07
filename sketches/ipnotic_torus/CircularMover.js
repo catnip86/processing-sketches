@@ -14,7 +14,7 @@ class CircularMover {
     this.theta = theta;
     this.angle = this.offsetAngle + 0.05 * theta;
     this.centerX = sin(this.theta) * diameter;
-    this.centerY = cos(this.theta) * diameter;
+    this.centerY = cos(this.theta) * diameter + 100;
     this.centerZ = sin(this.theta * 2) * 100;
   }
 
