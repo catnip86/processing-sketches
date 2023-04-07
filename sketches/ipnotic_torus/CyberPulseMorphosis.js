@@ -79,6 +79,8 @@ function setup() {
     gif: {
       fileName: "CyberPulseMorphosis.gif",
       download: true,
+      width: 2048,
+      height: 2048,
       options: {
         workers: 10,
         dither: "Atkinson",
