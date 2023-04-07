@@ -42,3 +42,10 @@ You can download Processing from the official website at https://processing.org/
   		<img src="sketches/dancing_boxes/dancing-boxes-thumbnail.jpg" alt="Dancing Boxes Video Preview" width="300" height="300">
 	</a>
     </p>
+	
+  - **Glitchy Skull Orbiters**
+
+    The Glitchy Skull Orbiters sketch is my first p5.js experiment featuring a glitchy background, a circular motion of groups of tori, and a rotating 3D model. The tori move around the central 3D model in a circular motion, while the glitchy background adds a dynamic and visually captivating effect. The combination of these elements creates an engaging and visually appealing experience, showcasing the capabilities of p5.js for creative coding projects.
+    <p align="center">
+      <img src="animations/glitchy-skull-orbiters.gif" width="300" height="300" alt="glitchy circular mover animation">
+    </p>
